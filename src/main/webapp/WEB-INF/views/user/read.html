@@ -1,10 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>User</title>
+    <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
 </head>
+
 <body>
-Hello, this is read user page
+<div class="w3-container">
+    <p id="id" hidden><span th:text="${id}"/></p>
+
+    <div class="w3-container w3-bar w3-blue">
+        <span class="w3-bar-item" style="padding-left:1px"><b>View User</b></span>
+
+        <a th:href="@{'/ui/user/update/' + ${id}}" class="w3-bar-item w3-button" style="float: right;">
+            <img th:src="@{/images/icon_edit.gif}"
+                 alt="modify"
+                 style="width:27px;height:27px;"
+                 title="modify"></a>
+
+        <span class="w3-bar-item w3-button" style="float: right;">
+            <img th:src="@{/images/icon_delete.gif}"
+                 alt="delete"
+                 style="width:27px;height:27px;"
+                 title="delete"
+                 id="btnDeleteEntity">
+        </span>
+
+        <span class="w3-bar-item w3-button" style="float: right;">
+            <img th:src="@{/images/icon_logout.jpg}"
+                 alt="Logout"
+                 style="width:27px;height:27px;"
+                 title="Logout"
+                 id="btnLogout">
+        </span>
+
+        <a href="/home" class="w3-bar-item w3-button" style="float: right;">
+            <img th:src="@{/images/icon_home.png}"
+                 alt="home"
+                 style="width:27px;height:27px;"
+                 title="home"></a>
+    </div>
+
+    <br>
+
+    <table id="entity_table" class="w3-table w3-striped w3-bordered">
+        <tr>
+            <th>Property Name</th>
+            <th>Property Value</th>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+
+    <form action="/ui/user/list">
+        <input type="submit" value="Back"/>
+    </form>
+
+    <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+    <script type="text/javascript">
+
+        $.ajaxSetup({
+            cache: false,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        });
+
+
+        $(document).delegate('#btnDeleteEntity','click',function(event){
+            event.preventDefault();
+
+            var id = $('#id').text();
+
+            console.log(id);
+
+            $.ajax({
+                type: "DELETE",
+                url: '/user/' + id,
+                success: function(result){
+                    location.href="/ui/user/list";
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('DELETE REQUEST ERROR!');
+                }
+            });
+        });
+
+
+        function ajaxGet(){
+
+            var id = $('#id').text();
+
+            $.getJSON('/user/' + id, function(json){
+
+                console.log(json);
+
+                var tr = [];
+
+                tr.push('<tr>');
+                tr.push('<td>Id</td>');
+                tr.push('<td>' + json.id+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>First Name</td>');
+                tr.push('<td>' + json.firstName+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Last Name</td>');
+                tr.push('<td>' + json.lastName+'</td>');
+                tr.push('</tr>');
+
+                $('#entity_table').append($(tr.join('')))
+            });
+        }
+
+        $(document).delegate('#btnLogout','click',function(event){
+            event.preventDefault();
+
+            $.ajax({
+                type: "GET",
+                url: '/logout',
+                success: function(result){
+                    location.href="/login";
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('LOGOUT ERROR!');
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            ajaxGet();
+        });
+
+    </script>
+</div>
 </body>
 </html>
