@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Create Role</title>
+    <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+</head>
+
+<body>
+<div class="w3-container">
+
+    <div class="w3-container w3-bar w3-blue">
+        <span class="w3-bar-item" style="padding-left:1px"><b>Create Role</b></span>
+
+        <span class="w3-bar-item w3-button" style="float: right;">
+            <img th:src="@{/images/icon_logout.jpg}"
+                 alt="Logout"
+                 style="width:27px;height:27px;"
+                 title="Logout"
+                 id="btnLogout">
+        </span>
+
+        <a href="/home" class="w3-bar-item w3-button" style="float: right;">
+            <img th:src="@{/images/icon_home.png}"
+                 alt="home"
+                 style="width:27px;height:27px;"
+                 title="home"></a>
+    </div>
+    <br>
+
+    <table id="create_entity_table" class="w3-table w3-bordered">
+        <tr>
+            <th>Property Name</th>
+            <th>Property Value</th>
+        </tr>
+
+        <tr>
+            <td>Id</td>
+            <td><input id="id" name="role_id_name" type="text"></td>
+        </tr>
+        <tr>
+            <td>Role</td>
+            <td><input id="role_role" name="role_role_name" type="text"></td>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+
+    <div class="container">
+        <button id="btnSave" class="btnSaveEntity">Save</button>
+        <button onclick="location.href='/ui/role/list'" type="button">Cancel</button>
+    </div>
+
+    <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+
+    <script type="text/javascript">
+
+        $.ajaxSetup({
+            cache: false,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        });
+
+        function RoleDTO(id,role){
+            this.id = id;
+            this.role = role;
+        }
+
+        $(document).delegate('#btnSave','click',function(event){
+            event.preventDefault();
+
+            var id = $('#id').val();
+            var role = $('#role_role').val();
+
+            var roleDTO = new RoleDTO(id,role);
+
+            console.log(roleDTO);
+            console.log(JSON.stringify(roleDTO));
+
+            $.ajax({
+                type: "POST",
+                url: "/role",
+                data: JSON.stringify(roleDTO),
+                success: function(result){
+                    location.href="/ui/role/list";
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('POST REQUEST ERROR!');
+                }
+            });
+        });
+
+        $(document).delegate('#btnLogout','click',function(event){
+            event.preventDefault();
+
+            $.ajax({
+                type: "GET",
+                url: '/logout',
+                success: function(result){
+                    location.href="/login";
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('LOGOUT ERROR!');
+                }
+            });
+        });
+
+    </script>
+</div>
+</body>
+</html>
