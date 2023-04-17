@@ -21,6 +21,7 @@ public class SecurityConfig {
 
     //authorization
     //SpringSecurity configuration
+    @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
