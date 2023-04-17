@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>Login page</title>
+  <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+</head>
+
+<body>
+<div class="w3-container">
+
+  <div class="w3-container w3-bar w3-blue">
+    <span class="w3-bar-item" style="padding-left:1px"><b>Login page</b></span>
+  </div>
+
+  <br>
+
+  <!--id and name for username and password MUST BE as here-->
+  <form name="f" method="post" action="/process-login">
+
+    <label for="username">Username: </label>
+    <input type="text" name="username" id="username"/>
+    <br>
+    <br>
+    <label for="password">Password: </label>
+    <input type="password" name="password" id="password"/>
+    <br>
+    <br>
+    <input type="submit" value="Login">
+    <br>
+    <br>
+    <div th:if="${param.error}" style="red">
+      Authentication Error
+    </div>
+  </form>
+
+
+</div>
+</body>
+</html>
