@@ -148,7 +148,7 @@
                 type: "GET",
                 url: '/logout',
                 success: function(result){
-                    location.href="/login";
+                    location.href="/auth/login";
                     window.setTimeout(function(){
                         location.reload();
                     }, 1000);
