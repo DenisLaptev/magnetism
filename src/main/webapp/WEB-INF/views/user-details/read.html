@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <title>User</title>
+    <title>Authenticated User</title>
     <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
 </head>
 
@@ -14,21 +14,7 @@
     <p id="id" hidden><span th:text="${id}"/></p>
 
     <div class="w3-container w3-bar w3-blue">
-        <span class="w3-bar-item" style="padding-left:1px"><b>View User</b></span>
-
-        <a th:href="@{'/ui/user/update/' + ${id}}" class="w3-bar-item w3-button" style="float: right;">
-            <img th:src="@{/images/icon_edit.gif}"
-                 alt="modify"
-                 style="width:27px;height:27px;"
-                 title="modify"></a>
-
-        <span class="w3-bar-item w3-button" style="float: right;">
-            <img th:src="@{/images/icon_delete.gif}"
-                 alt="delete"
-                 style="width:27px;height:27px;"
-                 title="delete"
-                 id="btnDeleteEntity">
-        </span>
+        <span class="w3-bar-item" style="padding-left:1px"><b>Authenticated User</b></span>
 
         <span class="w3-bar-item w3-button" style="float: right;">
             <img th:src="@{/images/icon_logout.jpg}"

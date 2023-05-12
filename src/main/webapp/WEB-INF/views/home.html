@@ -1,10 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Home</title>
+    <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
 </head>
+
 <body>
-Hello, this is Magnetism Application
+<div class = "w3-container">
+
+    <div class="w3-container w3-bar w3-blue">
+
+        <span class="w3-bar-item" style="padding-left:1px"><b>Home page</b></span>
+
+        <span class="w3-bar-item w3-button" style="float: right;">
+            <img th:src="@{/images/icon_logout.jpg}"
+                 alt="Logout"
+                 style="width:27px;height:27px;"
+                 title="Logout"
+                 id="btnLogout">
+        </span>
+
+        <a href="/auth/registration" class="w3-bar-item w3-button" style="float: right;">
+            <img th:src="@{/images/icon_registration.png}"
+                 alt="registration"
+                 style="width:27px;height:27px;"
+                 title="registration"></a>
+
+    </div>
+
+    <br>
+
+    <table id="entities_table" class="w3-table w3-striped w3-bordered w3-hoverable">
+        <tr>
+            <td><a id='users' href="/ui/user/list">Users</a></td>
+        </tr>
+        <tr>
+            <td><a id='roles' href="/ui/role/list">Roles</a></td>
+        </tr>
+        <tr>
+            <td><a id='tasks' href="/ui/task/list">Tasks</a></td>
+        </tr>
+    </table>
+
+    <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+    <script type="text/javascript">
+
+        $(document).delegate('#btnLogout','click',function(event){
+            event.preventDefault();
+
+            $.ajax({
+                type: "GET",
+                url: '/logout',
+                success: function(result){
+                    location.href="/auth/login";
+                    window.setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(err){
+                    alert('LOGOUT ERROR!');
+                }
+            });
+        });
+
+    </script>
+
+</div>
 </body>
 </html>

@@ -6,10 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(name="user_table")
+@Table(name = "user_table")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -20,18 +21,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="username")
+    @Column(name = "username")
+    @Size(min = 2, max = 20, message = "Username should be from 2 to 20 chars")
     private String username;
 
-    @Column(name="password")
+    @Column(name = "password")
+    @Size(min = 2, max = 20, message = "Password should be from 2 to 20 chars")
     private String password;
 
-    @Column(name="firstName")
+    @Column(name = "firstName")
+    @Size(min = 2, max = 20, message = "First name should be from 2 to 20 chars")
     private String firstName;
 
-    @Column(name="lastName")
+    @Column(name = "lastName")
+    @Size(min = 2, max = 20, message = "Last name should be from 2 to 20 chars")
     private String lastName;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 }

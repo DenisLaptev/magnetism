@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>Registration</title>
+<!--  <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>-->
+</head>
+
+<body>
+<div class="w3-container">
+
+  <div class="w3-container w3-bar w3-blue">
+    <span class="w3-bar-item" style="padding-left:1px"><b>Registration</b></span>
+
+    <a href="/home" class="w3-bar-item w3-button" style="float: right;">
+      <img th:src="@{/images/icon_home.png}"
+           alt="home"
+           style="width:27px;height:27px;"
+           title="home"></a>
+  </div>
+
+  <br>
+
+  <form name="f" th:method="POST" th:action="@{/auth/process-registration}" th:object="${user}">
+
+    <label for="firstName">First Name: </label>
+    <input type="text" th:field="*{firstName}"  id="firstName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error</div>
+    <br>
+    <br>
+    <label for="lastName">Last Name: </label>
+    <input type="text" th:field="*{lastName}"  id="lastName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error</div>
+    <br>
+    <br>
+    <label for="email">Email: </label>
+    <input type="text" th:field="*{email}"  id="email"/>
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+    <br>
+    <br>
+    <label for="username">Username: </label>
+    <input type="text" th:field="*{username}"  id="username"/>
+    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
+    <br>
+    <br>
+    <label for="password">Password: </label>
+    <input type="text" th:field="*{password}"  id="password"/>
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
+    <br>
+    <br>
+    <input type="submit" value="Register">
+  </form>
+
+
+</div>
+</body>
+</html>
