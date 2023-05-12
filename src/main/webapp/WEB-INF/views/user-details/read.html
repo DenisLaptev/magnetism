@@ -1,28 +1,20 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml"
       lang="en">
-
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <title>Users List</title>
+    <title>Authenticated User</title>
     <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
 </head>
 
 <body>
-<div class = "w3-container">
+<div class="w3-container">
+    <p id="id" hidden><span th:text="${id}"/></p>
 
     <div class="w3-container w3-bar w3-blue">
-
-        <span class="w3-bar-item" style="padding-left:1px"><b>Users List</b></span>
-
-        <a href="/ui/user/create" class="w3-bar-item w3-button" style="float: right;">
-            <img th:src="@{/images/icon_create.gif}"
-                 alt="create"
-                 style="width:27px;height:27px;"
-                 title="create"></a>
+        <span class="w3-bar-item" style="padding-left:1px"><b>Authenticated User</b></span>
 
         <span class="w3-bar-item w3-button" style="float: right;">
             <img th:src="@{/images/icon_logout.jpg}"
@@ -37,37 +29,62 @@
                  alt="home"
                  style="width:27px;height:27px;"
                  title="home"></a>
-
     </div>
 
     <br>
 
-    <table id="entities_table" class="w3-table w3-striped w3-bordered w3-hoverable">
+    <table id="entity_table" class="w3-table w3-striped w3-bordered">
         <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Property Name</th>
+            <th>Property Value</th>
         </tr>
     </table>
+
+    <br>
+    <br>
+
+    <form action="/ui/user/list">
+        <input type="submit" value="List of Users"/>
+    </form>
 
     <!--    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
     <script type="text/javascript">
 
+        $.ajaxSetup({
+            cache: false,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        });
+
+
         function ajaxGet(){
 
-            $.getJSON('/user', function (json) {
+            var id = $('#id').text();
+
+            $.getJSON('/user/' + id, function(json){
+
                 console.log(json);
 
                 var tr = [];
-                for (var i = 0; i < json.length; i++) {
 
-                    tr.push('<tr>');
-                    tr.push('<td><a id=' + json[i].id + ' href="/ui/user/read/' + json[i].id + '">' + json[i].id + '</a></td>');
-                    tr.push('<td>'+json[i].firstName+'</td>');
-                    tr.push('<td>'+json[i].lastName+'</td>');
-                }
+                tr.push('<tr>');
+                tr.push('<td>Id</td>');
+                tr.push('<td>' + json.id+'</td>');
+                tr.push('</tr>');
 
-                $('#entities_table').append($(tr.join('')));
+                tr.push('<tr>');
+                tr.push('<td>First Name</td>');
+                tr.push('<td>' + json.firstName+'</td>');
+                tr.push('</tr>');
+
+                tr.push('<tr>');
+                tr.push('<td>Last Name</td>');
+                tr.push('<td>' + json.lastName+'</td>');
+                tr.push('</tr>');
+
+                $('#entity_table').append($(tr.join('')))
             });
         }
 
@@ -89,12 +106,11 @@
             });
         });
 
-
-        $(document).ready(function(){
+        $(document).ready(function() {
             ajaxGet();
         });
-    </script>
 
+    </script>
 </div>
 </body>
 </html>
