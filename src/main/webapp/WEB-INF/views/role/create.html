@@ -43,7 +43,7 @@
         </tr>
         <tr>
             <td>Role</td>
-            <td><input id="role_role" name="role_role_name" type="text"></td>
+            <td><input id="role_title" name="role_title_name" type="text"></td>
         </tr>
     </table>
 
@@ -67,18 +67,18 @@
             }
         });
 
-        function RoleDTO(id,role){
+        function RoleDTO(id,title){
             this.id = id;
-            this.role = role;
+            this.title = title;
         }
 
         $(document).delegate('#btnSave','click',function(event){
             event.preventDefault();
 
             var id = $('#id').val();
-            var role = $('#role_role').val();
+            var title = $('#role_title').val();
 
-            var roleDTO = new RoleDTO(id,role);
+            var roleDTO = new RoleDTO(id,title);
 
             console.log(roleDTO);
             console.log(JSON.stringify(roleDTO));

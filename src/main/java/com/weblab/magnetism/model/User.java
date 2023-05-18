@@ -1,5 +1,6 @@
 package com.weblab.magnetism.model;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,6 @@ public class User {
     private String username;
 
     @Column(name = "password")
-    @Size(min = 2, max = 20, message = "Password should be from 2 to 20 chars")
     private String password;
 
     @Column(name = "firstName")
@@ -39,4 +39,7 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    @Transient
+    private List<String> authorities;
 }
