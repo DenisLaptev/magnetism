@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Entity
@@ -26,7 +27,6 @@ public class User {
     private String username;
 
     @Column(name = "password")
-    @Size(min = 2, max = 20, message = "Password should be from 2 to 20 chars")
     private String password;
 
     @Column(name = "firstName")
@@ -39,4 +39,7 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    @Transient
+    private List<String> authorities;
 }

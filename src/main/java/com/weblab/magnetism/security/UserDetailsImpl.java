@@ -1,11 +1,14 @@
 package com.weblab.magnetism.security;
 
 import com.weblab.magnetism.model.User;
-import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
@@ -16,7 +19,10 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return user.getAuthorities()
+                .stream()
+                .map(authority -> new SimpleGrantedAuthority(authority))
+                .collect(Collectors.toList());
     }
 
     @Override

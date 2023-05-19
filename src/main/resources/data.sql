@@ -1,2 +1,2 @@
-DELETE FROM user_table WHERE username = 'test';
-INSERT INTO user_table (first_Name, username, password) VALUES ('Denys', 'test', '123');
+INSERT INTO role (title) VALUES ('ROLE_ADMIN');
+INSERT INTO role (title) VALUES ('ROLE_USER');
